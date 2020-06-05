@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>글 세부내용</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+</head>
+<body>
+    <div th:insert="/common/header.html" id="header"></div>
+
+    <!--/* th:text를 사용하면 태그 사이에 작성한 내용은 사라지고 th:text값으로 덮어 씌워짐 */-->
+    <!--/* 이를 해결하기 위해 th:inline을 사용, 변수를 아래와 같이 [[${}]]으로 표기 */-->
+    <div class="container" style="width: 1000px ">
+        <div style="text-align: start">
+            <h2 th:inline="text">제목 : [[${boardDto.title}]]</h2>
+        </div>
+        <hr>
+        <div style="text-align: start">
+            <h3 th:inline="text">작성자 : [[${boardDto.writer}]]</h3>
+        </div>
+        <hr>
+        <div style="text-align: start">
+            <h3 th:inline="text">작성일 : [[${#temporals.format(boardDto.createdDate, 'yyyy-MM-dd HH:mm')}]]</h3>
+        </div>
+        <hr>
+        <div style="text-align: start; white-space: pre">
+           <h4 th:text="${boardDto.content}"></h4>
+        </div>
+        <hr>
+    </div>
+
+    <!-- 수정/삭제 -->
+    <div class="container" >
+        <div style="text-align: right">
+            <a th:href="@{'/post/edit/'+${boardDto.id}}">
+                <button style="width: 100px">수정</button>
+            </a>
+            <form id="delete-form" th:action="@{'/post/'+${boardDto.id}}" method="post">
+                <!-- RESTful을 위해 hiddenHttpMethodFilter를 이용, form의 method는 post지만 실제 컨트롤러에서 delete 매핑 -->
+                <input type="hidden" name="_method" value="delete"/>
+                <button id="delete-btn" style="width: 100px" onclick="alert('Board Entity delete success.')">삭제</button>
+            </form>
+            <div style="text-align: center; margin-top: 20px">
+                <a th:href="@{'/board'}"><button style="width: 200px">목록</button></a>
+            </div>
+        </div>
+    </div>
+
+   <!-- <script th:inline="javascript">
+        var boardDto=""; // [[${boardDto}]]
+    </script>-->
+
+    <script th:inline="javascript" th:src="@{/js/board.js}"></script>
+
+    <div th:insert="/common/footer.html" id="footer"></div>
+</body>
+</html>

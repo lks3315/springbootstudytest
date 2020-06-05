@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>게시글 구현 스터디</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+</head>
+<body>
+    <div th:insert="/common/header.html" id="header"></div>
+
+    <div class="container" style="text-align: center">
+        <table>
+            <div style="text-align: center">
+                <thead>
+                    <tr>
+                        <th class="one wide" style="text-align: center; width: 50px; height: 30px">번호</th>
+                        <th class="ten wide" style="text-align: center; width: 300px; height: 30px">글제목</th>
+                        <th class="two wide" style="text-align: center; width: 200px; height: 30px">작성자</th>
+                        <th class="three wide" style="text-align: center; width: 150px; height: 30px">작성일</th>
+                    </tr>
+                </thead>
+            </div>
+
+            <tbody>
+                <!-- thymeleaf의 반복문 사용, 컨트롤러가 넘겨주는 변수를 $통해 받음, boardList는 컨트롤러가 넘겨주는 변수 -->
+                <tr th:each="board:${boardList}">
+                    <td>
+                        <div th:text="${board.id}" style="width: 50px; height: 30px"></div>
+                    </td>
+                    <td style="text-align: left">
+                        <!-- 글 제목을 누르면 상세 페이지로 이동하기 위하여 pathVariable 사용 -->
+                        <a th:href="@{'/post/'+${board.id}}">
+                            <div th:text="${board.title}" style="width: 300px; height: 30px; margin-left: 5px"></div>
+                        </a>
+                    </td>
+                    <td>
+                        <div th:text="${board.writer}" style="width: 200px; height: 30px"></div>
+                    </td>
+                    <td>
+                        <!-- 생성 일자 보기 좋게 포맷팅... 저장해 뒀다 복붙하자... -->
+                        <div th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}" style="width: 150px; height: 30px"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container" style="text-align: center; margin-right: 380px; margin-top: 10px">
+        <form>
+            <button  style="width: 100px">
+                <a th:href="@{/post/write}">글쓰기</a></button>
+        </form>
+    </div>
+<!--    <a th:href="@{/post}">글쓰기</a>-->
+<!--    <div class="container" style="text-align: center">-->
+<!--        <hr>-->
+<!--        <h1>Footer Area</h1>-->
+<!--    </div>-->
+    <div th:insert="/common/footer.html" id="footer"></div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+</head>
+<body>
+    <div th:insert="/common/header.html" id="header"></div>
+    <div style="text-align: center">
+        <div>
+            <h3>회원 가입 페이지</h3>
+        </div>
+        <div style="margin-top: 10px">
+            <form th:action="@{/user/signup}" method="post" modelAttribute="memberDto">
+
+                <div>
+                    <input type="text" name="email" placeholder="이메일을 입력해주세요.">
+                    <span th:txt="${valid_email}"></span>
+                </div>
+                <div style="margin-top: 10px">
+                    <input type="password" name="password" placeholder="비밀번호 입력해주세요.">
+                    <span th:txt="${valid_password}"></span>
+                </div>
+                <div style="margin-top: 10px; margin-left: 130px">
+                    <button type="submit">가입하기</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div th:insert="/common/footer.html" id="footer"></div>
+</body>
+</html>

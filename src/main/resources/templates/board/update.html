@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+</head>
+<body>
+    <div th:insert="/common/header.html" id="header"></div>
+
+    <div class="container" style="text-align: center">
+        <form th:action="@{'/post/edit/' + ${boardDto.id}}" method="post">
+        <!-- Rest임ful을 위한 것으로 컨트롤러에서 PUT 메소드랑 매핑할거 -->
+            <input type="hidden" name="_method" value="put"/>
+            <!-- hidden type으로 id를 넘겨주는 이유는 JPA(BoardRepository.save())에서 insert와 update를 같은 메소드에서 사용하기 때문  -->
+            <!-- id가 없으면 insert, 있으면 update -->
+            <input type="hidden" name="id" th:value="${boardDto.id}"/>
+
+            <div style="margin-bottom: 10px">
+                제목 : <input type="text" name="title" th:value="${boardDto.title}">
+            </div>
+            <div style="margin-bottom: 10px">
+                작성자 : <input type="text" name="writer" th:value="${boardDto.writer}">
+            </div>
+            <div>
+                <textarea name="content" style="resize: none; width: 500px; height: 300px" th:text="${boardDto.content}"></textarea>
+            </div>
+            <div style="margin-bottom: 40px">
+                <input type="submit" value="수정" style="width: 100px; float: right">
+            </div>
+        </form>
+    </div>
+
+    <div th:insert="/common/footer.html" id="footer"></div>
+</body>
+</html>

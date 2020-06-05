@@ -1,0 +1,42 @@
+#Server port
+server:
+  port: 8087
+
+#database connect info
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/board?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: tvstorm123
+  #jpa 설정
+  jpa:
+    #JPA db 플랫폼 지정
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    # web 요청이 완료될 때 까지 동일한 EntityManager를 갖도록 하는 옵션(OSIV), 다만 SpringBoot에선 기본적으로 제공해주는 기능이므로 여기선 false
+    open-in-view: false
+    # 콘솔에 JPA 실행 쿼리 출력
+    show-sql: true
+    hibernate:
+      # 콘솔에 출력되는 JPA 실행 쿼리를 보다 가독성 있게 포맷해줌
+      format_sql: true
+      # database 초기화 전략 , none:아무실행x, create:SessionFactory가 시작될 때 기존테이블 삭제후 다시 생성,
+      # create-drop:create과 동일하며 SessionFactory가 종료될 때 drop 실행, update:변경된 스키마만 적용, validate:엔티티와 테이블이 정상적으로 매핑됐는지만 확인
+      ddl-auto: update
+  #livereload 추가
+  devtools:
+    livereload:
+      enabled: true
+  freemarker:
+    cache: false
+
+#logging
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE

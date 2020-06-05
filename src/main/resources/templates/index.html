@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+</head>
+<body>
+    <div th:insert="/common/header.html" id="header"></div>
+
+    <div style="text-align: center">
+        <!--/* sec:authorize는 user의 role에 따라 노출시키는 메뉴를 다르게 하는 것이 가능 */-->
+        <!--/* isAnonymous() : 익명의 사용자 (비로그인) */-->
+        <div sec:authorize="isAuthenticated()" style="margin-bottom: 10px">
+            <span sec:authentication="name" style="margin-right: 10px"></span>
+        </div>
+        <a sec:authorize="isAnonymous()" th:href="@{/user/login}" style="margin-right: 10px">로그인</a>
+        <!--/* 인증된 사용자 */-->
+        <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}" style="margin-right: 10px">로그아웃</a>
+        <a sec:authorize="isAnonymous()" th:href="@{/user/signup}" style="margin-right: 10px">회원가입</a>
+        <!--/* hasRole안에 설정된 role을 가진것에 따라 메뉴 노출 */-->
+        <a sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/user/info}" style="margin-right: 10px">내정보</a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin}" style="margin-right: 10px">관리자</a>
+
+        <a th:href="@{/board}" style="margin-right: 10px">게시판</a>
+    </div>
+
+    <div th:insert="/common/footer.html" id="footer"></div>
+</body>
+</html>
