@@ -25,9 +25,8 @@
             <h3 th:inline="text">작성일 : [[${#temporals.format(boardDto.createdDate, 'yyyy-MM-dd HH:mm')}]]</h3>
         </div>
         <hr>
-        <div style="text-align: start; white-space: pre">
-           <h4 th:text="${boardDto.content}"></h4>
-        </div>
+           <h4 th:text="${boardDto.content}" style="text-align: start; white-space: pre"></h4>
+        <br><br><br>
         <hr>
     </div>
 
@@ -35,12 +34,12 @@
     <div class="container" >
         <div style="text-align: right">
             <a th:href="@{'/post/edit/'+${boardDto.id}}">
-                <button style="width: 100px">수정</button>
+                <button style="width: 100px; margin-top: 10px">수정</button>
             </a>
             <form id="delete-form" th:action="@{'/post/'+${boardDto.id}}" method="post">
                 <!-- RESTful을 위해 hiddenHttpMethodFilter를 이용, form의 method는 post지만 실제 컨트롤러에서 delete 매핑 -->
                 <input type="hidden" name="_method" value="delete"/>
-                <button id="delete-btn" style="width: 100px" onclick="alert('Board Entity delete success.')">삭제</button>
+                <button id="delete-btn" style="width: 100px; margin-top: 10px" onclick="alert('Board Entity delete success.')">삭제</button>
             </form>
             <div style="text-align: center; margin-top: 20px">
                 <a th:href="@{'/board'}"><button style="width: 200px">목록</button></a>

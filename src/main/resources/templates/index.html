@@ -13,7 +13,7 @@
         <!--/* sec:authorize는 user의 role에 따라 노출시키는 메뉴를 다르게 하는 것이 가능 */-->
         <!--/* isAnonymous() : 익명의 사용자 (비로그인) */-->
         <div sec:authorize="isAuthenticated()" style="margin-bottom: 10px">
-            <span sec:authentication="name" style="margin-right: 10px"></span>
+            <h3><span sec:authentication="name" style="margin-right: 10px"></span></h3>
         </div>
         <a sec:authorize="isAnonymous()" th:href="@{/user/login}" style="margin-right: 10px">로그인</a>
         <!--/* 인증된 사용자 */-->
